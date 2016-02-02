@@ -54,11 +54,6 @@ var education = {
 	]
 };
 
-
-/**
-    Second-part : Add all the information to the page
-*/
-
 /*my work experience*/
 var work = {
 //	"jobs" : [
@@ -106,6 +101,12 @@ var projects = {
 };
 
 
+
+/**
+    Second-part : Add all the information to the page
+*/
+
+
 /*add header*/
 var formattedName = HTMLheaderName.replace("%data%", bio.name);
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
@@ -113,21 +114,27 @@ $("#header").prepend(formattedRole);
 $("#header").prepend(formattedName);
 
 /*add contact information*/
-$("#topContacts").append(HTMLmobile.replace('%data%',bio.contactInfo.mobile));
-$("#topContacts").append(HTMLemail.replace('%data%',bio.contactInfo.email));
-$("#topContacts").append(HTMLgithub.replace('%data%',bio.contactInfo.github));
-$("#topContacts").append(HTMLlocation.replace('%data%',bio.contactInfo.location));
-$("#header").append(HTMLbioPic.replace('%data%',bio.pictureURL));
-$("#header").append(HTMLWelcomeMsg.replace('%data%',bio.welcomeMessage));
+function displayContact() {
+    $("#topContacts").append(HTMLmobile.replace('%data%',bio.contactInfo.mobile));
+    $("#topContacts").append(HTMLemail.replace('%data%',bio.contactInfo.email));
+    $("#topContacts").append(HTMLgithub.replace('%data%',bio.contactInfo.github));
+    $("#topContacts").append(HTMLlocation.replace('%data%',bio.contactInfo.location));
+    $("#header").append(HTMLbioPic.replace('%data%',bio.pictureURL));
+    $("#header").append(HTMLWelcomeMsg.replace('%data%',bio.welcomeMessage));
+}
+displayContact();
 
 /*add skills at a glance*/
-if(bio.skills.length > 0) {
+function displaySkills() {
+    if(bio.skills.length > 0) {
     $("#header").append(HTMLskillsStart);
     for (skill in skills){
         var formattedSkill = HTMLskills.replace("%data%", bio.skills[skill]);
         $("#skills").append(formattedSkill);
     };
+    }
 }
+displaySkills();
 
 /*add work experience*/
 function displayWork(){
@@ -206,10 +213,17 @@ $("#btn").click(function(){
    $("#name").text(inName(bio.name)); 
 });
 
-$("#footerContacts").append(HTMLmobile.replace('%data%',bio.contactInfo.mobile));
-$("#footerContacts").append(HTMLemail.replace('%data%',bio.contactInfo.email));
-$("#footerContacts").append(HTMLgithub.replace('%data%',bio.contactInfo.github));
-$("#footerContacts").append(HTMLlocation.replace('%data%',bio.contactInfo.location));
+/*add footerContacts*/
+function displayfooterContacts () {
+    $("#footerContacts").append(HTMLmobile.replace('%data%',bio.contactInfo.mobile));
+    $("#footerContacts").append(HTMLemail.replace('%data%',bio.contactInfo.email));
+    $("#footerContacts").append(HTMLgithub.replace('%data%',bio.contactInfo.github));
+    $("#footerContacts").append(HTMLlocation.replace('%data%',bio.contactInfo.location));
+}
+displayfooterContacts();
 
-/*set map(Where I've Lived)*/
-$("#mapDiv").append(googleMap);
+/*add map(Where I've Lived)*/
+function displayHeader () {
+    $("#mapDiv").append(googleMap);
+}
+displayHeader();
