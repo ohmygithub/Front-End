@@ -26,14 +26,16 @@ var education = {
 			"degree" : "Bachelor",
 			"major" : "Biological Engineering",
 			"dates" : "Aug. 2010 - Jun. 2014",
-			"location" : "Shanghai"
+			"location" : "Shanghai",
+            "schoolurl" : "http://www.ecust.edu.cn/s/2/t/31/main.htm"
 		},
 		{
 			"name" : "University of Southern California",
 			"degree" : "Master of Science",
 			"major" : "Biomedical Engineering",
 			"dates" : "Jan. 2015 - Dec. 2016",
-			"location" : "Los Angeles"
+			"location" : "Los Angeles",
+            "schoolurl" : "http://www.usc.edu/"
 		}
 	],
 	"onlineCourses" : [
@@ -79,7 +81,7 @@ var work = {
 var projects = {
 	"projects" : [
 		{
-			"title" : "Project 1",
+			"title" : "Mockup-Design",
 			"dates" : "Jan. 2016",
 			"images" : [
                 {
@@ -90,7 +92,7 @@ var projects = {
             "githuburl" : "https://github.com/ohmygithub/Front-End/tree/master/Project1"
 		},
 		{
-			"title" : "Project 2",
+			"title" : "Resume-JavaScript",
 			"dates" : "Jan. 2016",
 			"description" : "In this project, I built my resume by writing a JS script that combined my personal information with pre-written HTML and CSS templates to generate my resume.",
 			"images" : [
@@ -167,7 +169,7 @@ projects.display();
 function edu() {
     for(school in education.schools) {
         $('#education').append(HTMLschoolStart);
-        var schoolName = HTMLschoolName.replace("%data%",education.schools[school].name);
+        var schoolName = HTMLschoolName.replace("%data%",education.schools[school].name).replace('#',education.schools[school].schoolurl);
         var schoolDegree = HTMLschoolDegree.replace("%data%",education.schools[school].degree);
         var schoolDates = HTMLschoolDates.replace("%data%",education.schools[school].dates);
         var schoolLocation = HTMLschoolLocation.replace("%data%",education.schools[school].location);
