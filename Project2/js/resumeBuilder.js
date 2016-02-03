@@ -56,6 +56,7 @@ var education = {
 
 /*my work experience*/
 var work = {
+    /*I DO NOT HAVE WORK EXPERIENCE RIGHT NOW!!*/
 //	"jobs" : [
 //		{
 //			"title" : "Front-end developer",
