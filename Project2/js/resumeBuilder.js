@@ -3,52 +3,50 @@
 */
 
 /*basic information of me*/
-var skills = ["Java", "JavaScript", "HTML5", "CSS3", "Bootstrap", "JQuery", "JSON", "Matlab", "SAS"];
 var bio = {
 	"name" : "Xinwei Wang",
 	"role" : "Web Developer",
-	"contactInfo" : {
+	"contacts" : {
 		"email" : "xinweiwa@usc.edu",
 		"github" : "ohmygithub",
 		"mobile" : "+1 573-818-5612",
 		"location" : "Los Angeles"
 	},
-	"pictureURL" : "images/mypicture.jpg",
+	"biopic" : "images/mypicture.jpg",
 	"welcomeMessage" : "You Came! You Saw! -- I Conquered!",
-	"skills" : skills
+	"skills" : ["Java", "JavaScript", "HTML5", "CSS3", "Bootstrap", "JQuery", "JSON", "Matlab", "SAS"]
 };
 
 /*my education background(including schools and online courses)*/
 var education = {
-	"schools" : [
-		{
+	"schools" : [{
 			"name" : "East China University of Science and Technology",
 			"degree" : "Bachelor",
-			"major" : "Biological Engineering",
+			"majors" : "Biological Engineering",
 			"dates" : "Aug. 2010 - Jun. 2014",
 			"location" : "Shanghai",
-            "schoolurl" : "http://www.ecust.edu.cn/s/2/t/31/main.htm"
+            "url" : "http://www.ecust.edu.cn/s/2/t/31/main.htm"
 		},
 		{
 			"name" : "University of Southern California",
 			"degree" : "Master of Science",
-			"major" : "Biomedical Engineering",
+			"majors" : "Biomedical Engineering",
 			"dates" : "Jan. 2015 - Dec. 2016",
 			"location" : "Los Angeles",
-            "schoolurl" : "http://www.usc.edu/"
+            "url" : "http://www.usc.edu/"
 		}
 	],
 	"onlineCourses" : [
 		{
 			"title" : "Front-End Nanodegree",
 			"school" : "Udacity",
-			"dates" : 2016,
+			"date" : '2016',
 			"url" : "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
 		},
         {
 			"title" : "Senior Front-End Nanodegree",
 			"school" : "Udacity",
-			"dates" : 2016,
+			"date" : '2016',
 			"url" : "https://www.udacity.com/course/senior-web-developer--nd802"
 		}
 	]
@@ -56,27 +54,27 @@ var education = {
 
 /*my work experience*/
 var work = {
-    /*I DO NOT HAVE WORK EXPERIENCE RIGHT NOW!!*/
-//	"jobs" : [
-//		{
-//			"title" : "Front-end developer",
-//			"dates" : "2017",
-//			"description" : "this job is about blablabla",
-//			"employer" : "some great company"
-//		},
-//		{
-//			"title" : "Full-stack Web Developer",
-//			"dates" : "2018",
-//			"description" : "this job is blablabla",
-//			"employer" : "another great company"
-//		}
-//	]
+	"jobs" : [
+		{
+			"title" : "Front-End Developer",
+			"dates" : "2017",
+			"description" : "this job is really awesome",
+			"employer" : "Udacity",
+            "url" : "https://www.udacity.com/"
+		},
+		{
+			"title" : "Full-Stack Web Developer",
+			"dates" : "2018",
+			"description" : "this job pays me a lot",
+			"employer" : "Google",
+            "url" : "https://www.google.com/"
+		}
+	]
 };
 
 /*projects I have done*/
 var projects = {
-	"projects" : [
-		{
+	"projects" : [{
 			"title" : "Mockup-Design",
 			"dates" : "Jan. 2016",
 			"images" : [
@@ -107,48 +105,43 @@ var projects = {
     Second-part : Add all the information to the page
 */
 
-
-/*add header*/
-function header(){
+/*add header and footer*/
+bio.display = function() {
     var formattedName = HTMLheaderName.replace("%data%", bio.name);
     var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
     $("#header").prepend(formattedRole);
     $("#header").prepend(formattedName);
-}
-
-/*add contact information*/
-function displayContact() {
-    $("#topContacts").append(HTMLmobile.replace('%data%',bio.contactInfo.mobile));
-    $("#topContacts").append(HTMLemail.replace('%data%',bio.contactInfo.email));
-    $("#topContacts").append(HTMLgithub.replace('%data%',bio.contactInfo.github));
-    $("#topContacts").append(HTMLlocation.replace('%data%',bio.contactInfo.location));
-    $("#cont").append(HTMLbioPic.replace('%data%',bio.pictureURL));
+    $("#topContacts").append(HTMLmobile.replace('%data%',bio.contacts.mobile));
+    $("#topContacts").append(HTMLemail.replace('%data%',bio.contacts.email));
+    $("#topContacts").append(HTMLgithub.replace('%data%',bio.contacts.github));
+    $("#topContacts").append(HTMLlocation.replace('%data%',bio.contacts.location));
+    $("#cont").append(HTMLbioPic.replace('%data%',bio.biopic));
     $("#cont").append(HTMLWelcomeMsg.replace('%data%',bio.welcomeMessage));
-}
-
-/*add skills at a glance*/
-function displaySkills() {
     if(bio.skills.length > 0) {
     $("#skl").append(HTMLskillsStart);
-        for (skill in skills){
+        for (skill in bio.skills){
             var formattedSkill = HTMLskills.replace("%data%", bio.skills[skill]);
             $("#skills").append(formattedSkill);
         };
     }
+    $("#footerContacts").append(HTMLmobile.replace('%data%',bio.contacts.mobile));
+    $("#footerContacts").append(HTMLemail.replace('%data%',bio.contacts.email));
+    $("#footerContacts").append(HTMLgithub.replace('%data%',bio.contacts.github));
+    $("#footerContacts").append(HTMLlocation.replace('%data%',bio.contacts.location));
 }
 
 /*add work experience*/
-function displayWork(){
+work.display = function() {
     for(job in work.jobs) {
         $("#workExperience").append(HTMLworkStart);
-        var formattedEmployer = HTMLworkTitle.replace("%data%",work.jobs[job].employer);
+        var formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer).replace('#',work.jobs[job].url);
         var formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].title);
         var formattedEmployerTitle = formattedTitle + formattedEmployer;
         $(".work-entry:last").append(formattedEmployerTitle);
         var formattedDates = HTMLworkDates.replace("%data%",work.jobs[job].dates);
         $(".work-entry:last").append(formattedDates);
         var formattedDescription = HTMLworkDescription.replace("%data%",work.jobs[job].description);
-        $(".work-entry:last").append(formattedDescription);
+        $(".work-entry:last").append(formattedDescription+'<br>');
      }
 }
 
@@ -171,14 +164,14 @@ projects.display = function() {
 }
 
 /*add education background(including schools and online courses)*/
-function edu() {
+education.display = function() {
     for(school in education.schools) {
         $('#education').append(HTMLschoolStart);
-        var schoolName = HTMLschoolName.replace("%data%",education.schools[school].name).replace('#',education.schools[school].schoolurl);
+        var schoolName = HTMLschoolName.replace("%data%",education.schools[school].name).replace('#',education.schools[school].url);
         var schoolDegree = HTMLschoolDegree.replace("%data%",education.schools[school].degree);
         var schoolDates = HTMLschoolDates.replace("%data%",education.schools[school].dates);
         var schoolLocation = HTMLschoolLocation.replace("%data%",education.schools[school].location);
-        var schoolMajor = HTMLschoolMajor.replace("%data%",education.schools[school].major);
+        var schoolMajor = HTMLschoolMajor.replace("%data%",education.schools[school].majors);
         $('.education-entry:last').append(schoolName + " " + schoolDegree + " " + schoolMajor);
         $(schoolDates).insertAfter($('#education').children('.education-entry:last').children('a'));
         $(schoolLocation).insertAfter($('#education').children('.education-entry:last').children('em'));
@@ -188,7 +181,7 @@ function edu() {
         $('#education').append(HTMLschoolStart);
         var onlineTitle = HTMLonlineTitle.replace("%data%",education.onlineCourses[course].title).replace("#", education.onlineCourses[course].url);
         var onlineSchool = HTMLonlineSchool.replace("%data%",education.onlineCourses[course].school);
-        var onlineDates = HTMLonlineDates.replace("%data%",education.onlineCourses[course].dates);
+        var onlineDates = HTMLonlineDates.replace("%data%",education.onlineCourses[course].date);
         var onlineURL = HTMLonlineURL.replace("%data%",education.onlineCourses[course].url).replace("#", education.onlineCourses[course].url);
         $('.education-entry:last').append(onlineTitle + " " + onlineSchool);
         $('#education').children('.education-entry:last').append(onlineDates);
@@ -214,16 +207,8 @@ function interbutton(){
     });
 }
 
-/*add footerContacts*/
-function displayfooterContacts () {
-    $("#footerContacts").append(HTMLmobile.replace('%data%',bio.contactInfo.mobile));
-    $("#footerContacts").append(HTMLemail.replace('%data%',bio.contactInfo.email));
-    $("#footerContacts").append(HTMLgithub.replace('%data%',bio.contactInfo.github));
-    $("#footerContacts").append(HTMLlocation.replace('%data%',bio.contactInfo.location));
-}
-
 /*add map(Where I've Lived)*/
-function displayMap () {
+function displaymap() {
     $("#mapDiv").append(googleMap);
 }
 
@@ -231,15 +216,13 @@ function displayMap () {
 /**
     Third-part : Display all the information that added
 */
+
 $("<div id='cont'></div>").insertAfter("#topContacts");
 $("<div id='skl'></div>").insertAfter("#cont");
-displayMap();
-header();
-displayfooterContacts();
-edu();
+education.display();
 projects.display();
-displaySkills();
-displayWork();
-displayContact();
+work.display();
 imgWidth();
 interbutton();
+bio.display();
+displaymap();
