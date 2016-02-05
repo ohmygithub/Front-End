@@ -23,7 +23,7 @@ var education = {
 			"name" : "East China University of Science and Technology",
 			"degree" : "Bachelor",
 			"majors" : "Biological Engineering",
-			"dates" : 'Aug. 2010 - Jun. 2014',
+			"dates" : '08-2010~06-2014',
 			"location" : "Shanghai",
             "url" : "http://www.ecust.edu.cn/s/2/t/31/main.htm"
 		},
@@ -31,7 +31,7 @@ var education = {
 			"name" : "University of Southern California",
 			"degree" : "Master of Science",
 			"majors" : "Biomedical Engineering",
-			"dates" : 'Jan. 2015 - Dec. 2016',
+			"dates" : '01-2015~12-2016',
 			"location" : "Los Angeles",
             "url" : "http://www.usc.edu/"
 		}
@@ -78,10 +78,10 @@ var work = {
 var projects = {
 	"projects" : [{
 			"title" : "Mockup-Design",
-			"dates" : 'Jan. 2016',
+			"dates" : '01-2016',
 			"images" : [
                 {
-                    img : "images/project1.jpg"
+                    "img" : "images/project1.jpg"
                 }
             ],
 			"description" : "I was provided a design mockup as a PDF-file and must replicate that design in HTML and CSS. I developed a responsive website that will display images, descriptions and links to each of the portfolio projects I completed through the course of the Front-End Web Developer nanodegree.",
@@ -89,11 +89,11 @@ var projects = {
 		},
 		{
 			"title" : "Resume-JavaScript",
-			"dates" : 'Jan. 2016',
+			"dates" : '01-2016',
 			"description" : "In this project, I built my resume by writing a JS script that combined my personal information with pre-written HTML and CSS templates to generate my resume.",
 			"images" : [
                 {
-                    img : "images/project2.jpg"
+                    "img" : "images/project2.jpg"
                 }
             ],
             "githuburl" : "https://github.com/ohmygithub/Front-End/tree/master/Project2"
