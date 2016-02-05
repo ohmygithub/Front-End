@@ -34,9 +34,10 @@ nav a, button {
     .title-logo {
         max-width: 200px;
         /* Write code here to center the logo on smaller devices! */
+        vertical-align: middle;
     }
-
     .title-text {
         /* Write code here to center the title text on smaller devices! */
+        text-align: center;
     }
 }
