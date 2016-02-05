@@ -30,3 +30,13 @@ nav a, button {
 		display: none;
 	}
 }
+@media screen and (max-width: 767px) {
+    .title-logo {
+        max-width: 200px;
+        /* Write code here to center the logo on smaller devices! */
+    }
+
+    .title-text {
+        /* Write code here to center the title text on smaller devices! */
+    }
+}
