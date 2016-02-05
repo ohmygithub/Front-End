@@ -25,7 +25,7 @@ nav a, button {
 	min-height: 48px;
 }
 
-@media only screen and (max-width: 500px) {/*need to be changed*/
+@media only screen and (max-width: 50px) {/*need to be changed*/
 	p {
 		display: none;
 	}
