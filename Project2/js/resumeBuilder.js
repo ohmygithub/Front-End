@@ -14,7 +14,7 @@ var bio = {
 	},
 	"biopic" : "images/mypicture.jpg",
 	"welcomeMessage" : "You Came! You Saw! -- I Conquered!",
-	"skills" : ["Java", "JavaScript", "HTML5", "CSS3", "Bootstrap", "JQuery", "JSON", "Matlab", "SAS"]
+	"skills" : ["Java", "JavaScript", "Github", "HTML5", "CSS3", "Bootstrap", "JQuery", "JSON", "Matlab", "SAS"]
 };
 
 /*my education background(including schools and online courses)*/
@@ -89,6 +89,13 @@ var projects = {
 			"description" : "In this project, I built my resume by writing a JS script that combined my personal information with pre-written HTML and CSS templates to generate my resume.",
 			"images" : ["images/project2.jpg"],
             "githuburl" : "https://github.com/ohmygithub/Front-End/tree/master/Project2"
+		},
+		{
+			"title" : "Classic Arcade Game Clone",
+			"dates" : '02-2016',
+			"description" : "I was provided visual assets and a game loop engine; using these tools, I added a number of entities to the game including the player characters and enemies to recreate the classic arcade game Frogger.",
+			"images" : ["images/project3.jpg"],
+            "githuburl" : "https://github.com/ohmygithub/Front-End/tree/master/Project3"
 		}
 	]
 };
