@@ -8,7 +8,7 @@ var Enemy = function(x, y, speed) {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
-    this.speed = Math.floor(Math.random()*3);
+    this.speed = Math.floor(Math.random()*300);
 };
 
 // Update the enemy's position, required method for game
@@ -18,7 +18,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     if (this.x >= 505) {
-        this.x = x - 101;
+        this.x = this.x - 101;
     } else {
         this.x = this.x + this.speed * dt;
     }
