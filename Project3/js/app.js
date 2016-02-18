@@ -17,16 +17,18 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x >= canvas.width) {
-        this.x = -101;
+    if (this.x >= 505) {
+        this.x = x - 101;
     } else {
         this.x = this.x + this.speed * dt;
     }
 };
 
 Enemy.prototype.isColliding = function() {
-    
+
 }
+
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -36,29 +38,29 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var player = function(x, y, direction) {
+var Player = function(x, y, direction) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
     this.direction = direction;
 };
-player.prototype.update = function() {
-    if (direction === 'l') {
+Player.prototype.update = function() {
+    if (this.direction === 'l') {
         this.x = this.x - 101;
-    } else if (direction === 'u') {
+    } else if (this.direction === 'u') {
         this.y = this.y + 101;
-    } else if (direction === 'r') {
+    } else if (this.direction === 'r') {
         this.x = this.x + 101;
-    } else if (direction === 'd') {
+    } else if (this.direction === 'd') {
         this.y = this.y - 101;
     } else {
         this.x = this.x;
     }
 }
-player.prototype.render = function() {
+Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
-player.prototype.handleInput = function(input) {
+Player.prototype.handleInput = function(input) {
     if (input === 37 && this.x >= 101) {
         this.direction === 'l';
     } else if (input === 38 && this.y <= 505) {
@@ -74,6 +76,7 @@ player.prototype.handleInput = function(input) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+var player = new Player();
 var allEnemies = [];
 for(var i = 0; i < 4; i++) {
     allEnemies.push(new Enemy(0, Math.floor(Math.random() * 5)));
