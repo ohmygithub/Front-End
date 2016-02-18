@@ -76,7 +76,7 @@ Player.prototype.handleInput = function(input) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var player = new Player();
+var player = new Player(0,400);
 var allEnemies = [];
 for(var i = 0; i < 4; i++) {
     allEnemies.push(new Enemy(0, Math.floor(Math.random() * 5)));
