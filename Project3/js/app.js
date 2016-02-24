@@ -1,5 +1,9 @@
+var game = {
+    tileHeight : 101,
+    canHeight : 505
+}
 // Enemies our player must avoid
-var Enemy = function(x, y, speed) {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -17,17 +21,12 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x >= 505) {
-        this.x = - 101;
+    if (this.x >= game.canHeight) {
+        this.x = - game.tileHeight;
     } else {
         this.x = this.x + this.speed * dt;
     }
 };
-
-Enemy.prototype.isColliding = function() {
-
-}
-
 
 
 // Draw the enemy on the screen, required method for game
@@ -46,42 +45,48 @@ var Player = function(x, y, direction) {
 };
 Player.prototype.update = function() {
     if (this.direction === 'l') {
-        this.x = this.x - 101;
+        this.x = this.x - game.tileHeight;
     } else if (this.direction === 'u') {
-        this.y = this.y + 101;
+        this.y = this.y + game.tileHeight;
     } else if (this.direction === 'r') {
-        this.x = this.x + 101;
+        this.x = this.x + game.tileHeight;
     } else if (this.direction === 'd') {
-        this.y = this.y - 101;
+        this.y = this.y - game.tileHeight;
     } else {
-        this.x = this.x;
     }
+    this.direction = 'nothing';
 }
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 Player.prototype.handleInput = function(input) {
-    if (input === 37 && this.x >= 101) {
-        this.direction === 'l';
-    } else if (input === 38 && this.y <= 505) {
-        this.direction === 'u';
-    } else if (input === 39 && this.x <= 404) {
-        this.direction === 'r';
-    } else if (input === 40 && this.y >= 101) {
-        this.direction === 'd';
+    if (input === 'left' && this.x >= game.tileHeight) {
+        this.direction = 'l';
+    } else if (input === 'up' && this.y <= game.canHeight - game.tileHeight) {
+        this.direction = 'u';
+    } else if (input === 'right' && this.x <= game.canHeight - game.tileHeight) {
+        this.direction = 'r';
+        console.log("direction is " + this.direction);
+    } else if (input === 'down' && this.y >= game.tileHeight) {
+        this.direction = 'd';
     } else {
-        this.direction === 'nothing';
+        this.direction = 'nothing';
     }
 }
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var player = new Player(0,400);
+var player = new Player(0, 404);
 var allEnemies = [];
 for(var i = 0; i < 4; i++) {
-    allEnemies.push(new Enemy(0, Math.floor(Math.random() * 5)));
+    allEnemies.push(new Enemy(0, Math.floor(Math.random() * 3 + 1) * 101));
 }
-
+if(Enemy.x === player.x && Enemy.y === player.y) {
+    player.x = 0;
+    player.y = 404;
+}
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -91,6 +96,5 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
