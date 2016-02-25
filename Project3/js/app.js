@@ -2,7 +2,7 @@ var game = {
     tileHeight : 101,
     canHeight : 606,
     canWidth : 505
-}
+};
 // Enemies our player must avoid
 var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
@@ -27,11 +27,11 @@ Enemy.prototype.update = function(dt) {
         this.x = - game.tileHeight;
     } else {
         this.x = this.x + this.speed * dt;
-    }
+    };
     if (isColliding(this)) {
         player.x = 0;
         player.y = 404;
-    }
+    };
 };
 
 
@@ -51,6 +51,7 @@ var Player = function(x, y, direction) {
     this.width = game.tileHeight;
     this.height = game.tileHeight;
 };
+
 Player.prototype.update = function() {
     if (this.direction === 'l') {
         this.x = this.x - game.tileHeight;
@@ -61,12 +62,12 @@ Player.prototype.update = function() {
     } else if (this.direction === 'u') {
         this.y = this.y - game.tileHeight;
     } else {
-    }
+    };
     this.direction = 'nothing';
-}
+};
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 Player.prototype.handleInput = function(input) {
     if (input === 'left' && this.x >= game.tileHeight) {
         this.direction = 'l';
@@ -78,8 +79,8 @@ Player.prototype.handleInput = function(input) {
         this.direction = 'd';
     } else {
         this.direction = 'nothing';
-    }
-}
+    };
+};
 
 
 // Now instantiate your objects.
@@ -89,15 +90,15 @@ var player = new Player(0, 404);
 var allEnemies = [];
 for(var i = 0; i < 4; i++) {
     allEnemies.push(new Enemy(0, Math.floor(Math.random() * 3 + 1) * 101));
-}
+};
 
 function isColliding(enemy) {   
     if (enemy.x < player.x + player.width && enemy.x + enemy.width > player.x && enemy.y < player.y + player.height && enemy.height + enemy.y > player.y) {
         return true;
     } else {
         return false;
-    }   
-}
+    };   
+};
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
