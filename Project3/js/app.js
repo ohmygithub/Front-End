@@ -1,5 +1,6 @@
 var game = {
-    tileHeight : 101,
+    tileWidth : 101,
+    tileHeight : 83,
     canHeight : 606,
     canWidth : 505
 };
@@ -9,9 +10,9 @@ var Enemy = function(x, y) {
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
-    this.speed = Math.floor(Math.random()*200);
-    this.width = game.tileHeight;
-    this.height = game.tileHeight;
+    this.speed = Math.floor(Math.random() * 200);
+    this.width = game.tileWidth / 2;
+    this.height = game.tileHeight / 2;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -23,8 +24,10 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x >= game.canHeight) {
-        this.x = - game.tileHeight;
+        console.log(' y is ' + this.y);
+
+    if (this.x >= game.canWidth * 2) {
+        this.x = - game.tileWidth;
     } else {
         this.x = this.x + this.speed * dt;
     };
@@ -32,8 +35,9 @@ Enemy.prototype.update = function(dt) {
         player.x = 0;
         player.y = 404;
     };
-};
+        console.log(' yafter is ' + this.y);
 
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -48,17 +52,17 @@ var Player = function(x, y, direction) {
     this.x = x;
     this.y = y;
     this.direction = direction;
-    this.width = game.tileHeight;
-    this.height = game.tileHeight;
+    this.width = game.tileWidth / 2;
+    this.height = game.tileHeight / 2;
 };
 
 Player.prototype.update = function() {
     if (this.direction === 'l') {
-        this.x = this.x - game.tileHeight;
+        this.x = this.x - game.tileWidth;
     } else if (this.direction === 'd') {
         this.y = this.y + game.tileHeight;
     } else if (this.direction === 'r') {
-        this.x = this.x + game.tileHeight;        
+        this.x = this.x + game.tileWidth;        
     } else if (this.direction === 'u') {
         this.y = this.y - game.tileHeight;
     } else {
@@ -69,13 +73,13 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 Player.prototype.handleInput = function(input) {
-    if (input === 'left' && this.x >= game.tileHeight) {
+    if (input === 'left' && this.x >= game.tileWidth) {
         this.direction = 'l';
-    } else if (input === 'up' && this.y >= game.tileHeight) {
+    } else if (input === 'up' && this.y > 0) {
         this.direction = 'u';
-    } else if (input === 'right' && this.x < game.canWidth - game.tileHeight) {
+    } else if (input === 'right' && this.x < game.canWidth - game.tileWidth) {
         this.direction = 'r';
-    } else if (input === 'down' && this.y < game.canHeight - game.tileHeight * 2) {
+    } else if (input === 'down' && this.y < game.canHeight - game.tileHeight * 3) {
         this.direction = 'd';
     } else {
         this.direction = 'nothing';
@@ -89,7 +93,7 @@ Player.prototype.handleInput = function(input) {
 var player = new Player(0, 404);
 var allEnemies = [];
 for(var i = 0; i < 4; i++) {
-    allEnemies.push(new Enemy(0, Math.floor(Math.random() * 3 + 1) * 101));
+    allEnemies.push(new Enemy(0, Math.floor(Math.random() * 3 + 1) * game.tileHeight - 22));
 };
 
 function isColliding(enemy) {   
