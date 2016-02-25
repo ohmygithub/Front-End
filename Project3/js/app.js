@@ -1,4 +1,6 @@
 var game = {
+    numOfEnemies : 4,
+    speedIndex : 100,
     tileWidth : 101,
     tileHeight : 83,
     canHeight : 606,
@@ -10,7 +12,7 @@ var Enemy = function(x, y) {
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
-    this.speed = Math.floor(Math.random() * 200);
+    this.speed = Math.floor((Math.random() + 1) * game.speedIndex);
     this.width = game.tileWidth / 2;
     this.height = game.tileHeight / 2;
     // The image/sprite for our enemies, this uses
@@ -24,9 +26,10 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x >= game.canWidth * 2) {
-        this.x = - game.tileWidth;
-    } else {
+    if (this.x >= game.canWidth) {
+        this.x = - game.canWidth * 2;
+        createEnemy(1);
+    } else if (this.x >= - game.tileWidth) {
         this.x = this.x + this.speed * dt;
     };
     if (isColliding(this)) {
@@ -88,9 +91,12 @@ Player.prototype.handleInput = function(input) {
 // Place the player object in a variable called player
 var player = new Player(0, 404);
 var allEnemies = [];
-for(var i = 0; i < 4; i++) {
-    allEnemies.push(new Enemy(0, Math.floor(Math.random() * 3 + 1) * game.tileHeight - 22));
-};
+var createEnemy = function(num) {
+    for(var i = 0; i < num; i++) {
+        allEnemies.push(new Enemy(-game.tileWidth , Math.floor(Math.random() * 3 + 1) * game.tileHeight - 22));
+    };
+}
+createEnemy(game.numOfEnemies);
 
 function isColliding(enemy) {   
     if (enemy.x < player.x + player.width && enemy.x + enemy.width > player.x && enemy.y < player.y + player.height && enemy.height + enemy.y > player.y) {
