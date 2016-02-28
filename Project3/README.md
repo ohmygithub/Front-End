@@ -4,12 +4,18 @@ frontend-nanodegree-arcade-game
 Students should use this [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535) for self-checking their submission.
 
 For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+
+
 Frogger Game: Getting Started
+Open index.html file with your browser. Then you can play the arcade game right away.
+
 In this project you will be building your own arcade game. Once finished, your game should look as shown on this video:(https://www.youtube.com/watch?v=SxeHV1kt7iU&feature=youtu.be)
 
 Basic Functionality
 In this game you have a Player and Enemies (Bugs). The goal of the player is to reach the water, without colliding into any one of the enemies. The player can move left, right, up and down. The enemies move in varying speeds on the paved block portion of the scene. Once a the player collides with an enemy, the game is reset and the player moves back to the start square. Once the player reaches the water the game is won.
 
+Play Rules
+Once you opened index.html with your browser, you can click left, right, up and down to make the player move. As long as the player and enemies have a collision, the player will be sent back to the original location on the canvas. Once the player reached to the river, you win.
 
 Getting Started
 
