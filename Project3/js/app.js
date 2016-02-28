@@ -39,14 +39,7 @@ Enemy.prototype.update = function (dt) {
         player.y = 404;
     }
 };
-//Enemy.prototype.isColliding(enemy) {
-//    //'use strict';
-//    if (enemy.x < player.x + player.width && enemy.x + enemy.width > player.x && enemy.y < player.y + player.height && enemy.height + enemy.y > player.y) {
-//        return true;
-//    } else {
-//        return false;
-//    }
-//}
+
 Enemy.prototype.isColliding = function () {
     'use strict';
     if (this.x < player.x + player.width && this.x + this.width > player.x && this.y < player.y + player.height && this.height + this.y > player.y) {
@@ -76,7 +69,9 @@ var Player = function (x, y, direction) {
 
 Player.prototype.update = function () {
     'use strict';
-    if (this.direction === 'l') {
+    if (this.y <= 0) {
+        Engine.init();
+    } else if (this.direction === 'l') {
         this.x = this.x - game.TILE_WIDTH;
     } else if (this.direction === 'd') {
         this.y = this.y + game.TILE_HEIGHT;
@@ -86,6 +81,7 @@ Player.prototype.update = function () {
         this.y = this.y - game.TILE_HEIGHT;
     }
     this.direction = 'nothing';
+    console.log('y is '+this.y);
 };
 Player.prototype.render = function () {
     'use strict';
@@ -93,10 +89,10 @@ Player.prototype.render = function () {
 };
 Player.prototype.handleInput = function (input) {
     'use strict';
-    if (input === 'left' && this.x >= game.TILE_WIDTH) {
-        this.direction = 'l';
-    } else if (input === 'up' && this.y > 0) {
+    if (input === 'up' && this.y > 0) {
         this.direction = 'u';
+    } else if (input === 'left' && this.x >= game.TILE_WIDTH) {
+        this.direction = 'l';
     } else if (input === 'right' && this.x < game.CAN_WIDTH - game.TILE_WIDTH) {
         this.direction = 'r';
     } else if (input === 'down' && this.y < game.CAN_HEIGHT - game.TILE_HEIGHT * 3) {
@@ -110,7 +106,7 @@ Player.prototype.handleInput = function (input) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var player = new Player(0, 404);
+var player = new Player(0, 404, 'nothing');
 var allEnemies = [];
 var createEnemy = function (num) {
     'use strict';
