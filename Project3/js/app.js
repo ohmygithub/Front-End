@@ -70,8 +70,8 @@ var Player = function (x, y, direction) {
 Player.prototype.update = function () {
     'use strict';
     if (this.y <= 0) {
-        player.x = 0;
-        player.y = 404;
+        this.x = 0;
+        this.y = 404;
     } else if (this.direction === 'l') {
         this.x = this.x - game.TILE_WIDTH;
     } else if (this.direction === 'd') {
