@@ -81,7 +81,7 @@ $(function () {
         it('changes visibility when clicked', function () {
             expect(menuHidden).not.toBe(menuClickBefore);
         });
-    });             
+    });
     /* a new test suite named "Initial Entries" */
     describe('Initial Entries', function () {
         
@@ -108,13 +108,13 @@ $(function () {
          */
         var chd;
         loadFeed(0, function () {
-            console.log('loadFeed0 is done');
+            chd = $('.feed').text();
+            loadFeed(1, function (done) {
+                done();
+            });
         });
-        chd = $('.feed').text();
-        beforeEach(function (done) {
-            loadFeed(1, done);
-        });
-        it('matters', function () {
+        
+        it("change .feed's content", function () {
             expect($('.feed').text()).not.toBe(chd);
         });
     });
