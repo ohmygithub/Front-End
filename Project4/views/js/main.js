@@ -406,13 +406,13 @@ var resizePizzas = function(size) {
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -424,7 +424,7 @@ var resizePizzas = function(size) {
    // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
     var oldWidth = elem.offsetWidth;
-    var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
+    var windowWidth = document.getElementById("randomPizzas").offsetWidth;
     var oldSize = oldWidth / windowWidth;
 
     // Optional TODO: change to 3 sizes? no more xl?
@@ -451,7 +451,7 @@ var resizePizzas = function(size) {
     
     
     
-  var pizzaContainer = document.querySelectorAll(".randomPizzaContainer");
+  var pizzaContainer = document.getElementsByClassName("randomPizzaContainer");
   var dx = determineDx(pizzaContainer[0], size);
   var newwidth = (pizzaContainer[0].offsetWidth + dx) + 'px';
     
@@ -516,12 +516,20 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.getElementsByClassName('.mover');
+  var items = document.getElementsByClassName('mover');
   var scrollT = document.body.scrollTop / 1250;
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin(scrollT + (i % 5));
-    items[i].translateX = items[i].basicLeft + 100 * phase + 'px';
+    
+  var phaseArray = [];
+  var scrollT = document.body.scrollTop / 1250;
+  for (var i = 0; i < 5; i++) {
+    phaseArray.push(Math.sin(scrollT + i));
   }
+  var phase;
+  for (var i = 0; i < items.length; i++) {
+    phase = phaseArray[i%5];
+    items[i].style.transform = 'translateX(100px)';
+  }
+    
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
@@ -540,6 +548,7 @@ window.addEventListener('scroll', scrolling);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+  var movingPizzas = document.querySelector("#movingPizzas1");
   for (var i = 0; i < 40; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
@@ -548,7 +557,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    movingPizzas.appendChild(elem);
   }
   updatePositions();
 });

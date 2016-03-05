@@ -1,5 +1,18 @@
 ## Website Performance Optimization portfolio project
 
+# How to run
+Download the entire directory, open html files with your browser.
+
+# Optimization have done
+1. Minimize css, js files
+2. async js, media css, inline critical css
+3. Compress image size
+4. Optimize javascript
+
+
+
+
+# Instructions of Doing the project
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 To get started, check out the repository, inspect the code,
