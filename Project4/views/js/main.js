@@ -453,7 +453,7 @@ var resizePizzas = function(size) {
     
   var pizzaContainer = document.querySelectorAll(".randomPizzaContainer");
   var dx = determineDx(pizzaContainer[0], size);
-  var newwidth = (document.querySelectorAll(".randomPizzaContainer")[0].offsetWidth + dx) + 'px';
+  var newwidth = (pizzaContainer[0].offsetWidth + dx) + 'px';
     
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
@@ -501,17 +501,26 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
-
+var onscroll = true,
+    scrollYloc = 0;
+function scrolling() {
+    scrollYloc = window.scrollY;
+    if (!onscroll) {
+        requestAnimationFrame(updatePositions);
+    }
+    onscroll = true;
+}
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
+  onscroll = false;
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
+  var items = document.getElementsByClassName('.mover');
   var scrollT = document.body.scrollTop / 1250;
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin(scrollT + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    items[i].translateX = items[i].basicLeft + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -525,7 +534,7 @@ function updatePositions() {
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+window.addEventListener('scroll', scrolling);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
