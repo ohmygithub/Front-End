@@ -82,6 +82,7 @@ Player.prototype.update = function () {
         this.y = this.y - game.TILE_HEIGHT;
     }
     this.direction = 'nothing';
+    console.log('y is '+this.y);
 };
 Player.prototype.render = function () {
     'use strict';

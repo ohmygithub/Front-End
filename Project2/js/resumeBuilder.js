@@ -14,7 +14,7 @@ var bio = {
 	},
 	"biopic" : "images/mypicture.jpg",
 	"welcomeMessage" : "You Came! You Saw! -- I Conquered!",
-	"skills" : ["Java", "JavaScript", "Github", "HTML5", "CSS3", "Bootstrap", "JQuery", "JSON", "Matlab", "SAS"]
+	"skills" : ["Java", "JavaScript", "Github", "HTML5", "CSS3", "Bootstrap", "JQuery", "AJAX", "JSON", "Matlab", "SAS"]
 };
 
 /*my education background(including schools and online courses)*/
@@ -81,21 +81,21 @@ var projects = {
 			"dates" : '01-2016',
 			"images" : ["images/project1.jpg"],
 			"description" : "I was provided a design mockup as a PDF-file and must replicate that design in HTML and CSS. I developed a responsive website that will display images, descriptions and links to each of the portfolio projects I completed through the course of the Front-End Web Developer nanodegree.",
-            "githuburl" : "https://github.com/ohmygithub/Front-End/tree/master/Project1"
+            "githuburl" : "https://github.com/xinweiwangGithub/Udacity-Front-End-Web-Developer-Nanodegree/tree/master/Project1"
 		},
 		{
 			"title" : "Resume-JavaScript",
 			"dates" : '01-2016',
 			"description" : "In this project, I built my resume by writing a JS script that combined my personal information with pre-written HTML and CSS templates to generate my resume.",
 			"images" : ["images/project2.jpg"],
-            "githuburl" : "https://github.com/ohmygithub/Front-End/tree/master/Project2"
+            "githuburl" : "https://github.com/xinweiwangGithub/Udacity-Front-End-Web-Developer-Nanodegree/tree/master/Project2"
 		},
 		{
 			"title" : "Classic Arcade Game Clone",
 			"dates" : '02-2016',
 			"description" : "I was provided visual assets and a game loop engine; using these tools, I added a number of entities to the game including the player characters and enemies to recreate the classic arcade game Frogger.",
 			"images" : ["images/project3.jpg"],
-            "githuburl" : "https://github.com/ohmygithub/Front-End/tree/master/Project3"
+            "githuburl" : "https://github.com/xinweiwangGithub/Udacity-Front-End-Web-Developer-Nanodegree/tree/master/Project3"
 		}
 	]
 };
