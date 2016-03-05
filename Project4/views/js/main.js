@@ -527,7 +527,7 @@ function updatePositions() {
   var phase;
   for (var i = 0; i < items.length; i++) {
     phase = phaseArray[i%5];
-    items[i].style.transform = 'translateX(100px)';
+    items[i].style.transform = 'translateX(' + 100 * phase + 'px)';
   }
     
 
@@ -549,13 +549,14 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   var movingPizzas = document.querySelector("#movingPizzas1");
+  var elem;
   for (var i = 0; i < 40; i++) {
-    var elem = document.createElement('img');
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
-    elem.basicLeft = (i % cols) * s;
+    elem.style.left = (i % cols) * s + 'px';
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     movingPizzas.appendChild(elem);
   }
