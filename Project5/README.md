@@ -1,4 +1,4 @@
-## Website Performance Optimization portfolio project
+## Neighborhood Map Project
 
 # How to run
 Download the entire directory, open html files with your browser. You can scale the map, click the marker on the map, search exist location.
