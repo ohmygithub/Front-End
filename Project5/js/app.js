@@ -97,7 +97,6 @@ var ViewModel = function () {
 	self.currentPlace = ko.observable();
 
 	// neighbourhood restaurants
-    var i;
 	self.dining = ko.observableArray([
     new restaurant({name: Restaurants.restaurants[0].name, address: Restaurants.restaurants[0].address, latLng: new google.maps.LatLng(Restaurants.restaurants[0].lat, Restaurants.restaurants[0].lng)}),
     new restaurant({name: Restaurants.restaurants[1].name, address: Restaurants.restaurants[1].address, latLng: new google.maps.LatLng(Restaurants.restaurants[1].lat, Restaurants.restaurants[1].lng)}),
