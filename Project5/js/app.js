@@ -32,7 +32,7 @@ var restaurantModel = function (eat) {
 
 	// Remove marker from the view
 	self.removeMarker = function () {
-		self.marker.setVisible(true);
+		self.marker.setVisible(false);
 	};
 
 	// Initialize infowindow of the place
