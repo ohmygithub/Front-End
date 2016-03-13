@@ -1,4 +1,4 @@
-var restaurant = function (eat) {
+var restaurantModel = function (eat) {
     'use strict';
 	var self = this;
 	self.name = eat.name;
@@ -18,7 +18,8 @@ var restaurant = function (eat) {
 	self.createMarker = function () {
 		self.marker = new google.maps.Marker({
 			map: myMap,
-			position: self.position
+			position: self.position,
+            animation: google.maps.Animation.DROP
 		});
 
 		google.maps.event.addListener(self.marker, 'click', self.select);
@@ -31,7 +32,7 @@ var restaurant = function (eat) {
 
 	// Remove marker from the view
 	self.removeMarker = function () {
-		self.marker.setMap(null);
+		self.marker.setVisible(true);
 	};
 
 	// Initialize infowindow of the place
@@ -44,9 +45,6 @@ var restaurant = function (eat) {
 	self.addInfowindow = function () {
 		self.infowindow.open(myMap, self.marker);
 
-		// Add foursquare explore to the info window
-		self.location();
-
 		// Set the marker and info window to the center
 		myMap.setCenter(self.position);
 	};
@@ -57,28 +55,36 @@ var restaurant = function (eat) {
 
 	// Change view to selected place
 	self.select = function () {
-		if (appView.currentPlace() !== undefined) {
-			appView.currentPlace().closeInfowindow();
-			appView.currentPlace().selected(false);
+		if (appView.currentLoc() !== undefined) {
+			appView.currentLoc().closeInfowindow();
+			appView.currentLoc().selected(false);
 		}
 
-		appView.currentPlace(self);
+		appView.currentLoc(self);
 		self.selected(true);
-		appView.currentPlace().addInfowindow();
+        appView.currentLoc().animation();
+		appView.currentLoc().addInfowindow();
 	};
 
-	// restaurants' location
-	self.location = function () {
-//		self.address();
-	};
+    self.animation = function () {
+        self.marker.addListener('click', toggleBounce(self));
+    };
 
 	self.init();
 };
 
-
+function toggleBounce(obj) 
+{
+    if (obj.marker.getAnimation() !== null) {
+        obj.marker.setAnimation(null);
+    } else {
+        obj.marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+}
 
 // Initialize google map
-var myMap;
+var myMap,
+    marker;
 function mapInit() {
     'use strict';
 	var initCenter = new google.maps.LatLng(34.066404, -118.296574);
@@ -87,6 +93,7 @@ function mapInit() {
 		zoom: 14
 	};
 	myMap = new google.maps.Map(document.getElementById('map'), mapOpts);
+    
 }
 
 var ViewModel = function () {
@@ -94,15 +101,15 @@ var ViewModel = function () {
 	var self = this;
 	self.filterText = ko.observable();
 	self.filterList = ko.observableArray();
-	self.currentPlace = ko.observable();
+	self.currentLoc = ko.observable();
 
 	// neighbourhood restaurants
 	self.dining = ko.observableArray([
-    new restaurant({name: Restaurants.restaurants[0].name, address: Restaurants.restaurants[0].address, latLng: new google.maps.LatLng(Restaurants.restaurants[0].lat, Restaurants.restaurants[0].lng)}),
-    new restaurant({name: Restaurants.restaurants[1].name, address: Restaurants.restaurants[1].address, latLng: new google.maps.LatLng(Restaurants.restaurants[1].lat, Restaurants.restaurants[1].lng)}),
-    new restaurant({name: Restaurants.restaurants[2].name, address: Restaurants.restaurants[2].address, latLng: new google.maps.LatLng(Restaurants.restaurants[2].lat, Restaurants.restaurants[2].lng)}),
-    new restaurant({name: Restaurants.restaurants[3].name, address: Restaurants.restaurants[3].address, latLng: new google.maps.LatLng(Restaurants.restaurants[3].lat, Restaurants.restaurants[3].lng)}),
-    new restaurant({name: Restaurants.restaurants[4].name, address: Restaurants.restaurants[4].address, latLng: new google.maps.LatLng(Restaurants.restaurants[4].lat, Restaurants.restaurants[4].lng)})
+    new restaurantModel({name: Restaurants.restaurants[0].name, address: Restaurants.restaurants[0].address, latLng: new google.maps.LatLng(Restaurants.restaurants[0].lat, Restaurants.restaurants[0].lng)}),
+    new restaurantModel({name: Restaurants.restaurants[1].name, address: Restaurants.restaurants[1].address, latLng: new google.maps.LatLng(Restaurants.restaurants[1].lat, Restaurants.restaurants[1].lng)}),
+    new restaurantModel({name: Restaurants.restaurants[2].name, address: Restaurants.restaurants[2].address, latLng: new google.maps.LatLng(Restaurants.restaurants[2].lat, Restaurants.restaurants[2].lng)}),
+    new restaurantModel({name: Restaurants.restaurants[3].name, address: Restaurants.restaurants[3].address, latLng: new google.maps.LatLng(Restaurants.restaurants[3].lat, Restaurants.restaurants[3].lng)}),
+    new restaurantModel({name: Restaurants.restaurants[4].name, address: Restaurants.restaurants[4].address, latLng: new google.maps.LatLng(Restaurants.restaurants[4].lat, Restaurants.restaurants[4].lng)})
     ]);
 
 	// Search and filter
@@ -114,7 +121,7 @@ var ViewModel = function () {
 		// Display all restaurants when no input in search box
 		if (!filter) {filter = ""; }
 		for (var i = 0, len = self.dining().length; i < len; i++) {
-			if(self.dining()[i].name.indexOf(filter) >= 0) {
+			if(self.dining()[i].name.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
 				self.dining()[i].addMarker();
 				self.filterList.push(self.dining()[i]);
 			}
@@ -130,7 +137,6 @@ var ViewModel = function () {
 
 	// Initialize view model
 	self.init = function() {
-		mapInit();
 		self.search(self.filterText);
 	};
 };
