@@ -33,7 +33,7 @@ var restaurantModel = function (eat, businessId) {
 
 	// Remove marker from the view
 	self.removeMarker = function () {
-		self.marker.setVisible(false);
+		self.marker.setMap(null);
 	};
 
 	// Initialize infowindow of the place
@@ -93,9 +93,7 @@ var restaurantModel = function (eat, businessId) {
                     url = results.url;
                     self.addInfowindow();
                 },
-                fail: function() {
-                    alert("Problem occured!");
-                }
+
             });
         };
     
@@ -144,7 +142,6 @@ function nonce_generate(length) {
 
 // Initialize google map
 var myMap,
-    marker;
 function mapInit() {
     'use strict';
     
@@ -166,7 +163,6 @@ var ViewModel = function () {
 	var self = this;
 	self.filterText = ko.observable();
 	self.filterList = ko.observableArray();
-	self.currentLoc = ko.observable();
 
 	// neighbourhood restaurants
 	self.dining = ko.observableArray([
