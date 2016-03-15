@@ -28,7 +28,7 @@ var restaurantModel = function (eat, businessId) {
 
 	// Add marker to the view
 	self.addMarker = function () {
-		self.marker.setMap(myMap);
+           self.marker.setMap(myMap); 
 	};
 
 	// Remove marker from the view
@@ -106,7 +106,9 @@ var restaurantModel = function (eat, businessId) {
 			self.closeInfowindow();
 			self.selected(false);
 		}
-
+        
+        closeWindow(self, appView);
+        
 		self.selected(true);
         self.animation();
         self.yelp(businessId, self);
@@ -120,7 +122,16 @@ var restaurantModel = function (eat, businessId) {
 	self.init();
 };
 
-
+function closeWindow(restaurant, view)
+{
+    for (var i = 0, len = view.dining().length; i < len; i++) 
+    {
+        if (restaurant != view.dining()[i])
+        {
+            view.dining()[i].closeInfowindow();
+        }
+    }
+}
 
 function toggleBounce(obj) 
 {
@@ -128,6 +139,10 @@ function toggleBounce(obj)
         obj.marker.setAnimation(null);
     } else {
         obj.marker.setAnimation(google.maps.Animation.BOUNCE);
+        
+        setTimeout(function() {
+        obj.marker.setAnimation(null);
+        }, 3000);
     }
 }
 
@@ -141,11 +156,13 @@ function nonce_generate(length) {
 }
 
 // Initialize google map
-var myMap,
-function mapInit() {
+var myMap;
+var appView;
+function mapInit() 
+{
     'use strict';
     
-    var appView = new ViewModel();
+    appView = new ViewModel();
     ko.applyBindings(appView);
     
 	var initCenter = new google.maps.LatLng(34.066404, -118.296574);
@@ -200,3 +217,8 @@ var ViewModel = function () {
 		self.search(self.filterText);
 	};
 };
+
+function errorHandler()
+{
+    alert("something went wrong with the async google map api loading!");
+}
