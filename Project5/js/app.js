@@ -101,11 +101,6 @@ var restaurantModel = function (eat, businessId) {
     
 	// Change view to selected place
 	self.select = function () {
-
-        if (self !== undefined) {
-			self.closeInfowindow();
-			self.selected(false);
-		}
         
         closeWindow(self, appView);
         
