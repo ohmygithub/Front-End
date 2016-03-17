@@ -8,7 +8,7 @@ var restaurantModel = function (eat, businessId) {
 	self.marker = '';
 	self.infowindow = '';
 	self.selected = ko.observable(false);
-
+    
 	// Initialize the place object
 	self.init = function () {
 		self.createMarker();
@@ -17,12 +17,13 @@ var restaurantModel = function (eat, businessId) {
 
 	// Initialize marker of the place
 	self.createMarker = function () {
+        
 		self.marker = new google.maps.Marker({
 			map: myMap,
 			position: self.position,
             animation: google.maps.Animation.DROP
 		});
-
+        
 		google.maps.event.addListener(self.marker, 'click', self.select);
 	};
 
@@ -117,19 +118,16 @@ var restaurantModel = function (eat, businessId) {
 	self.init();
 };
 
-function closeWindow(restaurant, view)
-{
-    for (var i = 0, len = view.dining().length; i < len; i++) 
-    {
-        if (restaurant != view.dining()[i])
-        {
+function closeWindow(restaurant, view) {
+    for (var i = 0, len = view.dining().length; i < len; i++) {
+        if (restaurant != view.dining()[i]) {
+            view.dining()[i].selected(false);
             view.dining()[i].closeInfowindow();
         }
     }
 }
 
-function toggleBounce(obj) 
-{
+function toggleBounce(obj) {
     if (obj.marker.getAnimation() !== null) {
         obj.marker.setAnimation(null);
     } else {
@@ -153,8 +151,7 @@ function nonce_generate(length) {
 // Initialize google map
 var myMap;
 var appView;
-function mapInit() 
-{
+function mapInit() {
     'use strict';
     
     appView = new ViewModel();
@@ -165,8 +162,17 @@ function mapInit()
 		center: initCenter,
 		zoom: 14
 	};
+    
+    var bounds = new google.maps.LatLngBounds();
 	myMap = new google.maps.Map(document.getElementById('map'), mapOpts);
     
+    for (var i = 0; i < appView.dining().length; i++)
+    {
+        var laglng = new google.maps.LatLng(Restaurants.restaurants[i].lat, Restaurants.restaurants[i].lng);
+        bounds.extend(laglng);
+    }
+    
+    myMap.fitBounds(bounds);
     appView.init();
 }
 
@@ -177,17 +183,23 @@ var ViewModel = function () {
 	self.filterList = ko.observableArray();
 
 	// neighbourhood restaurants
-	self.dining = ko.observableArray([
-    new restaurantModel({name: Restaurants.restaurants[0].name, address: Restaurants.restaurants[0].address, latLng: new google.maps.LatLng(Restaurants.restaurants[0].lat, Restaurants.restaurants[0].lng)}, Restaurants.restaurants[0].businessId),
-    new restaurantModel({name: Restaurants.restaurants[1].name, address: Restaurants.restaurants[1].address, latLng: new google.maps.LatLng(Restaurants.restaurants[1].lat, Restaurants.restaurants[1].lng)}, Restaurants.restaurants[1].businessId),
-    new restaurantModel({name: Restaurants.restaurants[2].name, address: Restaurants.restaurants[2].address, latLng: new google.maps.LatLng(Restaurants.restaurants[2].lat, Restaurants.restaurants[2].lng)}, Restaurants.restaurants[2].businessId),
-    new restaurantModel({name: Restaurants.restaurants[3].name, address: Restaurants.restaurants[3].address, latLng: new google.maps.LatLng(Restaurants.restaurants[3].lat, Restaurants.restaurants[3].lng)}, Restaurants.restaurants[3].businessId),
-    new restaurantModel({name: Restaurants.restaurants[4].name, address: Restaurants.restaurants[4].address, latLng: new google.maps.LatLng(Restaurants.restaurants[4].lat, Restaurants.restaurants[4].lng)}, Restaurants.restaurants[4].businessId)
-    ]);
-
+	self.dining = ko.observableArray([]);
+    for (var i = 0; i < Restaurants.restaurants.length; i++) {
+        self.dining.push(
+            new restaurantModel({
+                name: Restaurants.restaurants[i].name,
+                address: Restaurants.restaurants[i].address,
+                latLng: new google.maps.LatLng(Restaurants.restaurants[i].lat, Restaurants.restaurants[i].lng)
+            }, Restaurants.restaurants[i].businessId)
+        );
+    }
 	// Search and filter
 	self.search = function (data) {
 		var filter = data();
+        
+        // Remove all markers
+        removeMarkerAll(self);
+        
 		self.filterList.removeAll();
 
 		// Display all restaurants when no input in search box
@@ -200,18 +212,18 @@ var ViewModel = function () {
 		}
 	};
 
-	// Remove all markers
-	self.removeMarkerAll = function() {
-		for (var i = 0; i < self.dining().length; i++) {
-			self.dining()[i].removeMarker();
-		}
-	};
-
 	// Initialize view model
 	self.init = function() {
 		self.search(self.filterText);
 	};
 };
+
+function removeMarkerAll(obj)
+{
+    for (var i = 0; i < obj.dining().length; i++) {
+        obj.dining()[i].removeMarker();
+    }
+}
 
 function errorHandler()
 {
