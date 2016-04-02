@@ -7,3 +7,10 @@ You've learned a lot about web development so far. I want you to take a moment t
 ---
 
 Your response goes here!
+I learned how to write html tags and make the page looks great.
+
+Adding text tags were easy.
+
+Adding links were difficult.
+
+My strategy was to repeat what I’ve learned, to master the knowledge better.
