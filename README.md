@@ -1,5 +1,5 @@
 # This is a repository of Udacity--Front-End Nanodegree projects.
-![Certificate](https://github.com/xinweiwangGithub/Udacity-Front-End-Web-Developer-Nanodegree/blob/master/certificate.pdf)
+![Certificate](https://github.com/xinweiwangGithub/Udacity-Front-End-Web-Developer-Nanodegree/blob/master/certificate.png)
 
 Here's a link to the nanodegree program.(https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
 
